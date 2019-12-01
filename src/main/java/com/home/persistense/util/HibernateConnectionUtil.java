@@ -9,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 import javax.sql.DataSource;
 
 public class HibernateConnectionUtil {
-//Double-checked locking
+    //Double-checked locking
     private static volatile SessionFactory sessionFactory;
 
     public static SessionFactory getConnection() {

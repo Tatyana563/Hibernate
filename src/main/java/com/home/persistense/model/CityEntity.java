@@ -7,17 +7,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+
 @NamedStoredProcedureQueries(
         @NamedStoredProcedureQuery(
-                name="changePopulation",
+                name = "changePopulation",
                 procedureName = "update_city_population",
                 parameters = {
-                        @StoredProcedureParameter(name="p_id",
-                                type=Integer.class,
-                                mode=ParameterMode.IN),
-                        @StoredProcedureParameter(name="p_population",
+                        @StoredProcedureParameter(name = "p_id",
                                 type = Integer.class,
-                                mode=ParameterMode.IN)
+                                mode = ParameterMode.IN),
+                        @StoredProcedureParameter(name = "p_population",
+                                type = Integer.class,
+                                mode = ParameterMode.IN)
                 }
         )
 )
@@ -50,8 +51,8 @@ public class CityEntity extends CommonInfoEntity {
     @Column(name = "COUNTRY_ID", insertable = false, updatable = false)
     private Integer countryId;
 
-    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="COUNTRY_ID")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "COUNTRY_ID")
     private CountryEntity country;
 
     @Override

@@ -10,17 +10,18 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @NamedStoredProcedureQueries(
         @NamedStoredProcedureQuery(
-                name="changeDescription",
+                name = "changeDescription",
                 procedureName = "update_country_description",
                 parameters = {
-                        @StoredProcedureParameter(name="p_id",
-                                type=Integer.class,
-                                mode=ParameterMode.IN),
-                        @StoredProcedureParameter(name="p_description",
+                        @StoredProcedureParameter(name = "p_id",
+                                type = Integer.class,
+                                mode = ParameterMode.IN),
+                        @StoredProcedureParameter(name = "p_description",
                                 type = String.class,
-                                mode=ParameterMode.IN)
+                                mode = ParameterMode.IN)
                 }
         )
 )
@@ -30,7 +31,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Table(name = "COUNTRY")
-public class CountryEntity extends CommonInfoEntity{
+public class CountryEntity extends CommonInfoEntity {
 
 
     @Id
@@ -44,7 +45,6 @@ public class CountryEntity extends CommonInfoEntity{
     @Enumerated(EnumType.STRING)
     @Column(name = "CURRENCY")
     private Currency currency;
-
 
 
     @Enumerated(EnumType.STRING)

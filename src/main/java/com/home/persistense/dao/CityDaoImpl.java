@@ -3,19 +3,16 @@ package com.home.persistense.dao;
 import com.home.persistense.model.CityEntity;
 import com.home.persistense.model.enumaration.Type;
 import com.home.persistense.util.HibernateConnectionUtil;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
-import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.*;
+
+
 import org.apache.log4j.Logger;
 
 
@@ -24,7 +21,13 @@ public class CityDaoImpl implements CityDao {
 
     private static CityDao cityDao;
 //singeltone
-    private CityDaoImpl(){};
+    private CityDaoImpl(){
+        /*try {
+            LogManager.getLogManager().readConfiguration(new FileInputStream("D:\\JAVA\\hibernateLesson\\src\\main\\resources\\log4j.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+    };
 
     public static CityDao getInstance() {
         if (cityDao == null) {
@@ -62,7 +65,6 @@ public class CityDaoImpl implements CityDao {
         tx = session.beginTransaction();
             if(Objects.isNull(entity)) throw new IllegalArgumentException("Please set a city");
             if(Objects.isNull(entity.getId())){
-                //entityManager.persist(entity);
                 session.save(entity);
             }
 
@@ -95,7 +97,7 @@ public class CityDaoImpl implements CityDao {
 
             return session.createQuery(query).getResultList();
         }
-        catch (Exception e) {
+        catch (HibernateException e) {
             log.error("Error was got while all cities were found"+e.getMessage());
             throw new CityDBException("DB connectivity/mapping issue");
             //return Collections.emptyList();
@@ -104,6 +106,7 @@ public class CityDaoImpl implements CityDao {
 
     @Override
     public Optional<CityEntity> findById(Integer id) {
+        log.error("find city by id = {}" + id);
         try (Session session = HibernateConnectionUtil.getConnection().openSession()) {
             final CityEntity cityEntity =
                     session.find(CityEntity.class, id);
@@ -115,10 +118,10 @@ public class CityDaoImpl implements CityDao {
 
     @Override
     public void delete(CityEntity entity) {
+        if (Objects.isNull(entity)) throw new NullPointerException("city must be set");
         Transaction tx = null;
         try (Session session = HibernateConnectionUtil.getConnection().openSession()) {
             tx = session.beginTransaction();
-            if (Objects.isNull(entity)) throw new NullPointerException("city must be set");
             session.remove(entity);
             tx.commit();
         }

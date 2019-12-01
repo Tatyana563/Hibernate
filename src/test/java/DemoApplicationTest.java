@@ -44,7 +44,7 @@ public class DemoApplicationTest {
         // cityService.createOrUpdate(city);// ok
         //System.out.println(cityService.findAll()); - ok
         // cityService.updateCityPopulation(10,250); - ok
-         cityService.remove(30);
+         cityService.remove(-30);
         // System.out.println(cityService.findById(14)); ok
 //        cityService.updateCityType(14, Type.GLOBAL_GIANT);
 //        CityEntity cityEntity = cityService.findById(14).get();

@@ -6,7 +6,6 @@ import com.home.persistense.model.enumaration.FilterKey;
 import com.home.persistense.util.HibernateConnectionUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
